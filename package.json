@@ -3,42 +3,42 @@
   "version": "6.3.0",
   "description": "Project configuration and boilerplate defaults for webpack projects",
   "license": "MIT",
-  "repository": "webpack-contrib/webpack-defaults",
+  "repository": "applexiaohao/webpack-defaults",
   "author": {
     "name": "Artem Sapegin",
     "url": "https://sapegin.me"
   },
+  "homepage": "https://github.com/applexiaohao/webpack-defaults",
+  "bugs": "https://github.com/applexiaohao/webpack-defaults/issues",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/webpack"
   },
-  "homepage": "https://github.com/webpack-contrib/webpack-defaults",
-  "bugs": "https://github.com/webpack-contrib/webpack-defaults/issues",
-  "bin": {
-    "webpack-defaults": "bin/index.js"
-  },
   "main": "dist/cjs.js",
   "engines": {
-    "node": ">= 8.9.0"
+    "node": ">= 10.13.0"
   },
   "scripts": {
     "start": "npm run build -- -w",
-    "prebuild": "npm run clean",
-    "build": "cross-env NODE_ENV=production babel src -d dist --ignore \"src/**/*.test.js\" --copy-files",
     "clean": "del-cli dist",
+    "prebuild": "npm run clean",
+    "build": "cross-env NODE_ENV=production babel src -d dist --copy-files",
     "commitlint": "commitlint --from=master",
-    "lint:prettier": "prettier \"{**/*,*}.{js,json,md,yml,css}\" --list-different",
-    "lint:js": "eslint --cache src test",
+    "security": "npm audit",
+    "lint:prettier": "prettier \"{**/*,*}.{js,json,md,yml,css,ts}\" --list-different",
+    "lint:js": "eslint --cache .",
     "lint": "npm-run-all -l -p \"lint:**\"",
+    "test:only": "cross-env NODE_ENV=test jest",
+    "test:watch": "npm run test:only -- --watch",
+    "test:coverage": "npm run test:only -- --collectCoverageFrom=\"src/**/*.js\" --coverage",
+    "pretest": "npm run lint",
+    "test": "npm run test:coverage",
     "prepare": "npm run build",
     "release": "standard-version",
-    "security": "npm audit",
-    "test:only": "cross-env NODE_ENV=test jest",
-    "test:watch": "cross-env NODE_ENV=test jest --watch",
-    "test:coverage": "cross-env NODE_ENV=test jest --collectCoverageFrom=\"src/**/*.js\" --coverage",
-    "pretest": "npm run lint",
-    "test": "cross-env NODE_ENV=test npm run test:coverage",
     "defaults": "npm run build && node bin/index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "files": [
     "bin",
@@ -81,11 +81,12 @@
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
     "lint-staged": "^9.2.0",
+    "memfs": "^3.4.13",
     "memory-fs": "^0.4.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "standard-version": "^6.0.1",
-    "webpack": "^4.35.3"
+    "webpack": "^4.46.0"
   },
   "keywords": [
     "webpack"
